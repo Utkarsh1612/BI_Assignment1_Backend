@@ -8,6 +8,15 @@ const PORT = process.env.PORT;
 
 initialiseDatabase();
 
+const cors = require("cors");
+const corsOptions = {
+  origin: "*",
+  Credentials: true,
+  optionSuccessStatus: 200,
+};
+
+app.use(cors(corsOptions));
+
 const eventData = {
   title: "Global Startup Summit 2025",
   hostedBy: "Entrepreneurs Network",
