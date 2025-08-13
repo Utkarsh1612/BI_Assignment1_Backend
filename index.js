@@ -97,7 +97,7 @@ app.get("/eventdetails/:eventId", async (req, res) => {
     if (event) {
       res.status(200).json(event);
     } else {
-      res.status(400).json({ message: "Error in fetching error" });
+      res.status(400).json({ message: "Error in fetching event" });
     }
   } catch (error) {
     res.status(500).json({ message: "Failed to fetch data:", error });
