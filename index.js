@@ -18,31 +18,31 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 const eventData = {
-  title: "Global Startup Summit 2025",
-  hostedBy: "Entrepreneurs Network",
-  type: "Both",
+  title: "PitchPrime 2025",
+  hostedBy: "Innovators Hub",
+  type: "Online",
   imageUrl: "https://images.unsplash.com/photo-1551836022-d5d88e9218df",
   details:
-    "Be part of the Global Startup Summit 2025, a hybrid event connecting innovators, investors, and industry leaders worldwide. Happening on October 5th from 9:00 AM to 2:00 PM at World Trade Center, New Delhi, and streamed online. Gain insights from top founders, attend interactive workshops, and explore funding opportunities. The event covers trends in sustainable business, fintech, and AI applications. Open to all aged 16 and above, registration is mandatory. Dress code is smart casual. Limited seats available for offline attendees to ensure high-quality networking opportunities. Secure your spot today and take your startup vision to the next level.",
+    "PitchPrime 2025 is an exclusive startup pitch night bringing together visionary founders, angel investors, and venture capitalists. Scheduled for September 20th from 6:00 PM to 10:00 PM at The Leela Palace, Bengaluru, and streamed live online. Selected startups will present their business ideas in a 5-minute pitch followed by a Q&A with the investor panel. Networking sessions, feedback workshops, and investor meet-and-greets will also be part of the evening. Open to all entrepreneurs and investors, registration is mandatory. Dress code is business formal to maintain a professional environment.",
   additionalInfo: {
-    dressCode: "Smart casual",
-    ageRestrictions: "16 and above",
+    dressCode: "Business formal",
+    ageRestrictions: "18 and above",
   },
-  eventTags: ["Startup", "Entrepreneurship", "Investment", "Technology"],
-  startTime: "9:00:00 AM",
-  endTime: "2:00:00 PM",
-  eventDate: "Sun Oct 05 2025",
-  address: "World Trade Center, New Delhi",
-  ticketPrice: "1500",
+  eventTags: ["Startup", "Pitch", "Investment", "Networking"],
+  startTime: "6:00:00 PM",
+  endTime: "10:00:00 PM",
+  eventDate: "Sat Sep 20 2025",
+  address: "The Leela Palace, Bengaluru",
+  ticketPrice: "₹2000",
   speakers: [
     {
-      name: "Alex Johnson",
-      designation: "Founder & CEO, GreenTech Solutions",
+      name: "Ravi Mehta",
+      designation: "Angel Investor & Mentor",
       imgUrl: "https://images.unsplash.com/photo-1603415526960-f7e0328e3e2f",
     },
     {
-      name: "Maria Lopez",
-      designation: "Venture Partner, Global Capital",
+      name: "Ananya Gupta",
+      designation: "Founder & CEO, FinGrow",
       imgUrl: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e",
     },
   ],
@@ -78,7 +78,29 @@ app.get("/events", async (req, res) => {
       res.status(400).json({ message: "Error in fetching data" });
     }
   } catch (error) {
-    res.status(500).json({ message: "Failed to fetching data:", error });
+    res.status(500).json({ message: "Failed to fetch data:", error });
+  }
+});
+
+const fetchEventById = async (eventId) => {
+  try {
+    const eventFound = await event.findById(eventId);
+    return eventFound;
+  } catch (error) {
+    console.log("error in fetching event by Id", error);
+  }
+};
+
+app.get("/eventdetails/:eventId", async (req, res) => {
+  try {
+    const event = await fetchEventById(req.params.eventId);
+    if (event) {
+      res.status(200).json(event);
+    } else {
+      res.status(400).json({ message: "Error in fetching error" });
+    }
+  } catch (error) {
+    res.status(500).json({ message: "Failed to fetch data:", error });
   }
 });
 
